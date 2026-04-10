@@ -1,0 +1,59 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T13:37:25.474Z",
+  "summary": "Frontend implements a chat-style UI with onboarding prompt, basic validation, loading/error handling, and connects to a backend getTreatment call via React Query. Safety guardrails/red-flag detection are implemented on the client. Backend Motoko actor exists and returns a deterministic text response with a disclaimer, but the clinical mapping is minimal and not structured, and it does not cover the required set of symptom scenarios/red-flag handling comprehensively.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Backend method returns structured treatment guidance and supports at least 8 common symptom scenarios (fever, cough/cold, sore throat, headache, nausea/vomiting, diarrhea, allergies, minor skin rash) via deterministic rule-based mapping.",
+      "reason": "backend/main.mo only returns a plain Text string and appears to handle only a small set of keywords (e.g., chest pain, headache, fever) with a generic fallback; it does not provide a structured response shape nor demonstrate coverage of at least 8 common scenarios listed in the requirements.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "If the input mentions red flags, responses prioritize urgent-care guidance and do not present casual OTC-only advice (covering red-flag examples like difficulty breathing, severe allergic reaction, stroke signs, severe dehydration, blood in stool/vomit, suicidal ideation).",
+      "reason": "Frontend red-flag detection covers many keywords and short-circuits to urgent guidance, but backend rule-based logic only explicitly checks for \"chest pain\" (and then headache/fever). The backend response content itself does not show coverage for the full set of red-flag examples, which is required as a general guardrail for all chatbot responses.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/lib/medicalGuardrails.ts",
+        "frontend/src/features/chat/ChatPage.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Identity authentication context and identity-aware actor creation logic.",
+      "reason": "The BuildRequest does not request authentication/login; it only requires connecting the chat UI to the backend using existing patterns. The diff adds a full InternetIdentityProvider and identity-based actor instantiation.",
+      "evidence": [
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/main.tsx",
+        "frontend/src/features/chat/backendMapping.ts"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/features/chat/ChatPage.tsx",
+    "frontend/src/features/chat/backendMapping.ts",
+    "frontend/src/features/chat/intakePrompt.ts",
+    "frontend/src/features/chat/types.ts",
+    "frontend/src/features/chat/useTreatmentMutation.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/medicalGuardrails.ts",
+    "frontend/src/main.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

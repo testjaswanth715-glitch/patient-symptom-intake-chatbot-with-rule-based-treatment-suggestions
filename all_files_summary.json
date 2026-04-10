@@ -1,0 +1,20 @@
+{
+  "backend/main.mo": "Defines a canister with a Symptom type and a getTreatment function that returns rule-based medical guidance with disclaimers.",
+  "feature_evidence.json": "Report mapping implemented features to related files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose of key frontend files in the project.",
+  "frontend/index.css": "Global Tailwind-based styles defining a healthcare-themed OKLCH color system for light and dark modes.",
+  "frontend/index.html": "Base HTML file loading the React app root and main entrypoint.",
+  "frontend/src/App.tsx": "Main React component that renders the chat page and notification toaster.",
+  "frontend/src/features/chat/backendMapping.ts": "Creates backend Symptom payloads with user principals for API calls.",
+  "frontend/src/features/chat/ChatPage.tsx": "Implements the full chat interface including message flow, red-flag detection, backend calls, and error handling.",
+  "frontend/src/features/chat/intakePrompt.ts": "Provides the initial onboarding prompt requesting key medical context from the user.",
+  "frontend/src/features/chat/types.ts": "Defines TypeScript types for chat messages, roles, and statuses.",
+  "frontend/src/features/chat/useTreatmentMutation.ts": "React Query mutation that sends symptom descriptions to the backend using the user's identity.",
+  "frontend/src/hooks/useActor.ts": "Initializes and manages the backend actor, refetching when Internet Identity changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides authentication via Internet Identity, exposing login state and identity management.",
+  "frontend/src/index.css": "Configures Tailwind layers and defines light/dark theme CSS variables for a healthcare-oriented color system.",
+  "frontend/src/lib/medicalGuardrails.ts": "Provides red‑flag detection, dosing‑caution checks, and automatic injection of medical disclaimers into chatbot replies.",
+  "frontend/src/main.tsx": "Bootstraps the React app with React Query and Internet Identity provider, loading global styles.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending colors, typography, containers, and animations using CSS variables for the app’s theme.",
+  "project_state.json": "Stores project metadata, features, requirements, and architectural notes for the healthcare chatbot."
+}

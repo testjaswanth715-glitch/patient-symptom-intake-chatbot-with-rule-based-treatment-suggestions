@@ -1,0 +1,129 @@
+{
+  "kind": "build_request",
+  "title": "Patient symptom intake chatbot with rule-based treatment suggestions",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a chatbot-style UI where a user can enter a patient's symptoms as free text, submit them, and see a chronological chat transcript of user messages and assistant replies.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Treatment analysis for patient , Symptoms will be given and through chat bot physician will be suggested the medicines to give to the patient"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A chat screen is available with an input box, send button, and scrollable transcript.",
+        "Submitting symptoms adds the user message to the transcript and shows a generated assistant reply.",
+        "The UI handles empty input (cannot submit) and shows a friendly validation message."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a backend Motoko service that accepts a symptom description (text) and returns treatment guidance using a deterministic, rule-based clinical decision mapping (no external APIs/LLMs).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Symptoms will be given and through chat bot physician will be suggested the medicines to give to the patient"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes a query or update method that takes symptom text and returns a structured response (e.g., summary, possible conditions, OTC options, red flags, next steps).",
+        "The response is produced solely from on-canister logic (no network calls).",
+        "At least 8 common symptom scenarios are supported (e.g., fever, cough/cold, sore throat, headache, nausea/vomiting, diarrhea, allergies, minor skin rash) with sensible, conservative guidance."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add safety guardrails to all chatbot responses: include a visible medical disclaimer, include 'seek urgent care' red-flag guidance when dangerous symptoms are detected, and avoid dosing instructions that require patient-specific factors unless explicitly provided.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "physician will be suggested the medicines to give to the patient"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Every assistant response includes an English disclaimer that the app is not a doctor and is for informational purposes.",
+        "If the input mentions red flags (e.g., chest pain, difficulty breathing, severe allergic reaction, signs of stroke, severe dehydration, blood in stool/vomit, suicidal ideation), the response prioritizes urgent-care guidance and does not present casual OTC-only advice.",
+        "Responses avoid exact pediatric dosing or weight-based dosing unless the user provided age/weight; otherwise the response recommends consulting a clinician/pharmacist for dosing."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Connect the frontend chat UI to the backend treatment-analysis method using the existing actor/React Query patterns in the template, including loading and error states.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When a message is sent, the UI shows a loading indicator until the backend returns.",
+        "If the backend call fails, the UI shows a non-technical error message and allows retry.",
+        "Successful replies render in the transcript with clear visual distinction between user and assistant messages."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Provide a simple onboarding/intake step that encourages users to include key context (age group, pregnancy status, duration, severity, allergies, current meds, chronic conditions) before the analysis is generated.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The chat screen includes a short, English prompt (inline or first assistant message) listing suggested details to include.",
+        "The user can proceed without filling structured fields, but the UI clearly suggests what information improves accuracy."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Define and apply a coherent visual theme (colors, typography, layout) appropriate for a healthcare assistant, and use it consistently across the app screens without using a blue/purple palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The app has a consistent theme (background, surfaces, spacing, and typography) applied to the chat view and any header/onboarding elements.",
+        "The chosen palette does not rely on blue/purple as the primary colors.",
+        "The UI is readable and accessible (sufficient contrast for text, clear focus states for inputs/buttons)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must be implemented in a single Motoko actor (backend/main.mo).",
+    "Do not use external databases or third-party AI/LLM integrations; treatment suggestions must be rule-based and deterministic on-canister.",
+    "Do not edit files under frontend/src/components/ui or any immutable hook paths listed in SYSTEM_CONTEXT; compose them instead."
+  ],
+  "nonGoals": [
+    "Diagnosing conditions with certainty or providing definitive prescriptions.",
+    "Integrations with external medical databases, EHR systems, or third-party APIs.",
+    "Real-time chat, multi-user chat rooms, or push notifications."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

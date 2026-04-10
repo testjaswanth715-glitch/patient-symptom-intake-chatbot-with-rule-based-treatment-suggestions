@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a treatment-analysis chatbot where users provide patient symptoms and the bot suggests possible medicines/treatment guidance.",
+  "architectural_notes": [
+    "Healthcare decision-support chatbot: user enters symptoms; system outputs suggested medicines/treatment guidance."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-chatbot-style-ui-where-a-user-can-enter-a-patient-s-symptoms-as-free-text-submit-them-and-see-a-chronological-chat-transcript-of-user-messages-and-assistant-replies",
+      "title": "Create a chatbot-style UI where a user can enter a patient's symptoms as free text, submit them, and see a chronological chat transcript of user messages and assistant replies.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-safety-guardrails-to-all-chatbot-responses-include-a-visible-medical-disclaimer-include-seek-urgent-care-red-flag-guidance-when-dangerous-symptoms-are-detected-and-avoid-dosing-instructions-that-require-patient-specific-factors-unless-explicitly-provided",
+      "title": "Add safety guardrails to all chatbot responses: include a visible medical disclaimer, include 'seek urgent care' red-flag guidance when dangerous symptoms are detected, and avoid dosing instructions that require patient-specific factors unless explicitly provided.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-connect-the-frontend-chat-ui-to-the-backend-treatment-analysis-method-using-the-existing-actor-react-query-patterns-in-the-template-including-loading-and-error-states",
+      "title": "Connect the frontend chat UI to the backend treatment-analysis method using the existing actor/React Query patterns in the template, including loading and error states.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-simple-onboarding-intake-step-that-encourages-users-to-include-key-context-age-group-pregnancy-status-duration-severity-allergies-current-meds-chronic-conditions-before-the-analysis-is-generated",
+      "title": "Provide a simple onboarding/intake step that encourages users to include key context (age group, pregnancy status, duration, severity, allergies, current meds, chronic conditions) before the analysis is generated.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-coherent-visual-theme-colors-typography-layout-appropriate-for-a-healthcare-assistant-and-use-it-consistently-across-the-app-screens-without-using-a-blue-purple-palette",
+      "title": "Define and apply a coherent visual theme (colors, typography, layout) appropriate for a healthcare assistant, and use it consistently across the app screens without using a blue/purple palette.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Chatbot accepts patient symptoms and provides medicine/treatment suggestions (physician-style guidance)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement a backend Motoko service that accepts a symptom description (text) and returns treatment guidance using a deterministic, rule-based clinical decision mapping (no external APIs/LLMs).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Patient symptom intake chatbot with rule-based treatment suggestions",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

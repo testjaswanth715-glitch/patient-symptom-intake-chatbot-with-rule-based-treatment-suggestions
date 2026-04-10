@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        /* Teal/green healthcare palette with warm neutrals */
+        --background: 0.98 0.005 160;
+        --foreground: 0.25 0.015 160;
+        --card: 1 0 0;
+        --card-foreground: 0.25 0.015 160;
+        --popover: 1 0 0;
+        --popover-foreground: 0.25 0.015 160;
+        /* Primary: Teal */
+        --primary: 0.55 0.12 180;
+        --primary-foreground: 0.99 0 0;
+        /* Secondary: Soft sage */
+        --secondary: 0.92 0.02 150;
+        --secondary-foreground: 0.35 0.02 160;
+        /* Muted: Warm gray */
+        --muted: 0.94 0.01 160;
+        --muted-foreground: 0.52 0.01 160;
+        /* Accent: Warm teal */
+        --accent: 0.88 0.04 170;
+        --accent-foreground: 0.35 0.02 170;
+        /* Destructive: Warm red */
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.99 0 0;
+        /* Borders and inputs */
+        --border: 0.88 0.01 160;
+        --input: 0.88 0.01 160;
+        --ring: 0.55 0.12 180;
+        /* Chart colors */
+        --chart-1: 0.65 0.15 170;
+        --chart-2: 0.70 0.12 140;
+        --chart-3: 0.60 0.18 200;
+        --chart-4: 0.75 0.10 120;
+        --chart-5: 0.68 0.14 190;
+        /* Sidebar */
+        --sidebar: 0.98 0.005 160;
+        --sidebar-foreground: 0.25 0.015 160;
+        --sidebar-primary: 0.55 0.12 180;
+        --sidebar-primary-foreground: 0.99 0 0;
+        --sidebar-accent: 0.92 0.02 150;
+        --sidebar-accent-foreground: 0.35 0.02 160;
+        --sidebar-border: 0.88 0.01 160;
+        --sidebar-ring: 0.55 0.12 180;
+    }
+
+    .dark {
+        --background: 0.18 0.015 160;
+        --foreground: 0.95 0.01 160;
+        --card: 0.22 0.02 160;
+        --card-foreground: 0.95 0.01 160;
+        --popover: 0.20 0.02 160;
+        --popover-foreground: 0.95 0.01 160;
+        /* Primary: Bright teal */
+        --primary: 0.70 0.15 180;
+        --primary-foreground: 0.15 0.02 180;
+        /* Secondary: Dark sage */
+        --secondary: 0.28 0.03 150;
+        --secondary-foreground: 0.95 0.01 160;
+        /* Muted: Dark warm gray */
+        --muted: 0.26 0.02 160;
+        --muted-foreground: 0.65 0.01 160;
+        /* Accent: Bright warm teal */
+        --accent: 0.35 0.06 170;
+        --accent-foreground: 0.95 0.01 170;
+        /* Destructive: Bright warm red */
+        --destructive: 0.60 0.24 25;
+        --destructive-foreground: 0.95 0 0;
+        /* Borders and inputs */
+        --border: 0.30 0.02 160;
+        --input: 0.30 0.02 160;
+        --ring: 0.70 0.15 180;
+        /* Chart colors */
+        --chart-1: 0.65 0.18 170;
+        --chart-2: 0.70 0.15 140;
+        --chart-3: 0.60 0.20 200;
+        --chart-4: 0.75 0.12 120;
+        --chart-5: 0.68 0.16 190;
+        /* Sidebar */
+        --sidebar: 0.20 0.02 160;
+        --sidebar-foreground: 0.95 0.01 160;
+        --sidebar-primary: 0.70 0.15 180;
+        --sidebar-primary-foreground: 0.15 0.02 180;
+        --sidebar-accent: 0.28 0.03 150;
+        --sidebar-accent-foreground: 0.95 0.01 160;
+        --sidebar-border: 0.30 0.02 160;
+        --sidebar-ring: 0.70 0.15 180;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

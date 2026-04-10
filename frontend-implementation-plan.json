@@ -1,0 +1,126 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Patient symptom intake chatbot (frontend UI, guardrails, and backend wiring)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build a chatbot-style screen that lets users enter free-text symptoms and view a chronological transcript of user/assistant messages with validation for empty submissions.",
+      "acceptanceCriteria": [
+        "A chat screen is available with an input box, send button, and scrollable transcript.",
+        "Submitting symptoms adds the user message to the transcript and shows a generated assistant reply.",
+        "The UI handles empty input (cannot submit) and shows a friendly validation message."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell that renders the chat screen as the primary view (single-screen app) and provides overall layout structure for transcript + composer."
+        },
+        {
+          "path": "frontend/src/features/chat/ChatPage.tsx",
+          "operation": "create",
+          "description": "Implement the chat UI: scrollable transcript, message bubbles with clear user vs assistant styling, input box + send button, and empty-input validation messaging. Use shadcn-ui components (e.g., Button, Input/Textarea, Card/ScrollArea) to compose the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/chat/types.ts",
+          "operation": "create",
+          "description": "Define lightweight frontend types for chat transcript items (role, text, timestamp, status) to keep UI state predictable and chronological."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add visible medical safety guardrails to assistant replies (disclaimer always; red-flag escalation; avoid patient-specific dosing unless provided).",
+      "acceptanceCriteria": [
+        "Every assistant response includes an English disclaimer that the app is not a doctor and is for informational purposes.",
+        "If the input mentions red flags (e.g., chest pain, difficulty breathing, severe allergic reaction, signs of stroke, severe dehydration, blood in stool/vomit, suicidal ideation), the response prioritizes urgent-care guidance and does not present casual OTC-only advice.",
+        "Responses avoid exact pediatric dosing or weight-based dosing unless the user provided age/weight; otherwise the response recommends consulting a clinician/pharmacist for dosing."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/medicalGuardrails.ts",
+          "operation": "create",
+          "description": "Add deterministic client-side post-processing for chatbot replies: (1) append/ensure a visible English disclaimer in every assistant message, (2) detect red-flag phrases in the user's input and elevate urgent-care guidance, (3) add a dosing caution when age/weight is not present. Keep logic conservative and rule-based."
+        },
+        {
+          "path": "frontend/src/features/chat/ChatPage.tsx",
+          "operation": "modify",
+          "description": "Wire guardrail post-processing into rendering of assistant messages and add a persistent, visible disclaimer element near the transcript (e.g., a banner/alert). Use shadcn-ui components (e.g., Alert) for the disclaimer presentation. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Connect chat sending to the existing backend actor via React Query with loading, error, and retry UX.",
+      "acceptanceCriteria": [
+        "When a message is sent, the UI shows a loading indicator until the backend returns.",
+        "If the backend call fails, the UI shows a non-technical error message and allows retry.",
+        "Successful replies render in the transcript with clear visual distinction between user and assistant messages."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/chat/useTreatmentMutation.ts",
+          "operation": "create",
+          "description": "Implement a React Query mutation that calls the backend actor's getTreatment method using the existing useActor pattern, returning the assistant reply string and surfacing loading/error state."
+        },
+        {
+          "path": "frontend/src/features/chat/ChatPage.tsx",
+          "operation": "modify",
+          "description": "On send: add the user message immediately, trigger the mutation, render an in-transcript loading state for the assistant, and on success render the assistant reply (after applying guardrails). On failure, render a friendly error message with a retry action. Use shadcn-ui components (e.g., Button, Alert, Skeleton/Loader patterns if available) for states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/chat/backendMapping.ts",
+          "operation": "create",
+          "description": "Create a small mapper that builds the Symptom argument expected by backend.d.ts (including creator principal selection and description) so ChatPage stays UI-focused."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add a simple onboarding/intake prompt that encourages key context (age group, pregnancy status, duration, severity, allergies, meds, chronic conditions) while allowing free-form use.",
+      "acceptanceCriteria": [
+        "The chat screen includes a short, English prompt (inline or first assistant message) listing suggested details to include.",
+        "The user can proceed without filling structured fields, but the UI clearly suggests what information improves accuracy."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/chat/intakePrompt.ts",
+          "operation": "create",
+          "description": "Define the onboarding/intake prompt copy (English) listing the suggested details to include (age group, pregnancy status, duration, severity, allergies, current meds, chronic conditions)."
+        },
+        {
+          "path": "frontend/src/features/chat/ChatPage.tsx",
+          "operation": "modify",
+          "description": "Show the intake prompt as the first assistant message in the transcript (or a prominent inline hint above the composer) without forcing structured fields."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a consistent, accessible healthcare-appropriate visual theme across the chat experience without using a blue/purple primary palette.",
+      "acceptanceCriteria": [
+        "The app has a consistent theme (background, surfaces, spacing, and typography) applied to the chat view and any header/onboarding elements.",
+        "The chosen palette does not rely on blue/purple as the primary colors.",
+        "The UI is readable and accessible (sufficient contrast for text, clear focus states for inputs/buttons)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles and theme tokens (CSS variables used by Tailwind/shadcn-ui) with a non-blue/non-purple primary palette (e.g., green/teal + warm neutrals), and ensure clear focus styles and readable defaults."
+        },
+        {
+          "path": "frontend/src/features/chat/ChatPage.tsx",
+          "operation": "modify",
+          "description": "Align chat layout, spacing, typography, and surfaces to the global theme for a healthcare assistant look-and-feel, ensuring adequate contrast and keyboard-focus visibility. Use shadcn-ui components to maintain consistent styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions only as needed to support the chosen non-blue/non-purple palette and consistent typography/spacing utilities across the chat UI."
+        }
+      ]
+    }
+  ]
+}

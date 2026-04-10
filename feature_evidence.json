@@ -1,0 +1,103 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-chatbot-style-ui-where-a-user-can-enter-a-patient-s-symptoms-as-free-text-submit-them-and-see-a-chronological-chat-transcript-of-user-messages-and-assistant-replies",
+      "featureTitle": "Create a chatbot-style UI where a user can enter a patient's symptoms as free text, submit them, and see a chronological chat transcript of user messages and assistant replies.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/chat/ChatPage.tsx",
+        "frontend/src/features/chat/types.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-safety-guardrails-to-all-chatbot-responses-include-a-visible-medical-disclaimer-include-seek-urgent-care-red-flag-guidance-when-dangerous-symptoms-are-detected-and-avoid-dosing-instructions-that-require-patient-specific-factors-unless-explicitly-provided",
+      "featureTitle": "Add safety guardrails to all chatbot responses: include a visible medical disclaimer, include 'seek urgent care' red-flag guidance when dangerous symptoms are detected, and avoid dosing instructions that require patient-specific factors unless explicitly provided.",
+      "files": [
+        "frontend/src/features/chat/ChatPage.tsx",
+        "frontend/src/lib/medicalGuardrails.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-connect-the-frontend-chat-ui-to-the-backend-treatment-analysis-method-using-the-existing-actor-react-query-patterns-in-the-template-including-loading-and-error-states",
+      "featureTitle": "Connect the frontend chat UI to the backend treatment-analysis method using the existing actor/React Query patterns in the template, including loading and error states.",
+      "files": [
+        "frontend/src/features/chat/ChatPage.tsx",
+        "frontend/src/features/chat/backendMapping.ts",
+        "frontend/src/features/chat/useTreatmentMutation.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-simple-onboarding-intake-step-that-encourages-users-to-include-key-context-age-group-pregnancy-status-duration-severity-allergies-current-meds-chronic-conditions-before-the-analysis-is-generated",
+      "featureTitle": "Provide a simple onboarding/intake step that encourages users to include key context (age group, pregnancy status, duration, severity, allergies, current meds, chronic conditions) before the analysis is generated.",
+      "files": [
+        "frontend/src/features/chat/ChatPage.tsx",
+        "frontend/src/features/chat/intakePrompt.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-define-and-apply-a-coherent-visual-theme-colors-typography-layout-appropriate-for-a-healthcare-assistant-and-use-it-consistently-across-the-app-screens-without-using-a-blue-purple-palette",
+      "featureTitle": "Define and apply a coherent visual theme (colors, typography, layout) appropriate for a healthcare assistant, and use it consistently across the app screens without using a blue/purple palette.",
+      "files": [
+        "frontend/src/features/chat/ChatPage.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

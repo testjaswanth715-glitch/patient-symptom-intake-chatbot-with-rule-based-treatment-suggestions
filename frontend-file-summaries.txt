@@ -1,0 +1,11 @@
+{
+  "frontend/src/App.tsx": "Main application component that renders the ChatPage and Toaster for notifications.",
+  "frontend/src/index.css": "Global styles with OKLCH color system using teal/green healthcare palette with warm neutrals for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom healthcare color palette, Inter font family, and custom animations for fade-in effects.",
+  "frontend/src/features/chat/types.ts": "TypeScript type definitions for chat messages including role, status, and message structure.",
+  "frontend/src/features/chat/intakePrompt.ts": "Welcome message prompt that guides users to provide key medical context for accurate treatment suggestions.",
+  "frontend/src/lib/medicalGuardrails.ts": "Client-side safety logic that detects red-flag symptoms, adds dosing cautions, and ensures medical disclaimers are present.",
+  "frontend/src/features/chat/backendMapping.ts": "Helper function to create properly formatted Symptom payloads for backend API calls.",
+  "frontend/src/features/chat/useTreatmentMutation.ts": "React Query mutation hook that handles backend communication for treatment analysis requests.",
+  "frontend/src/features/chat/ChatPage.tsx": "Main chat interface with message transcript, input composer, loading states, error handling, and retry functionality."
+}
